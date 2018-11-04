@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-32) 2017.2 (Build 651)" ts="2018-11-05 01:03:15">
+<Class name="ESystem.Admin.CreateGlobal">
+<Description>
+ d ##class(ESystem.Admin.CreateGlobal).CreateXML()
+d ##class(ESystem.Admin.CreateGlobal).CreateAll()</Description>
+<Super>%RegisteredObject</Super>
+<TimeChanged>64957,3370.610439</TimeChanged>
+<TimeCreated>64957,2887.736015</TimeCreated>
+
+<Method name="CreateAll">
+<ClassMethod>1</ClassMethod>
+<Implementation><![CDATA[
+   d ..CreateXML("D:\04-11-2018\mdesigner.exe")
+   d ..CreateXML("D:\04-11-2018\mplayer.exe")
+   d ..CreateXML("D:\04-11-2018\mstudio.exe")
+]]></Implementation>
+</Method>
+
+<Method name="CreateXML">
+<ClassMethod>1</ClassMethod>
+<FormalSpec>fileName="D:\04-11-2018\mdesigner.exe"</FormalSpec>
+<Implementation><![CDATA[
+	  set file=##class(%FileBinaryStream).%New()
+	  set file.Filename=fileName
+	  s fileOnly=$p(fileName,"/",$l(fileName,"/"))
+	  s OutXMLFile = $e(fileName,1,$l(fileName)-4)_".XML"
+	  s ind=0
+	  while 'file.AtEnd{
+		  s ind=ind+1
+          s ^mtempFILE(fileOnly,ind)=file.Read(32000)	  
+	  }
+	  d $system.OBJ.Export("^mtempFILE("""_fileOnly_""").gbl",OutXMLFile)
+      k ^mtempFILE(fileOnly)
+      w "ok"
+]]></Implementation>
+</Method>
+</Class>
+</Export>
