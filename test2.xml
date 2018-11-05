@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="Cache" version="25" zv="Cache for Windows (x86-32) 2017.2 (Build 651)" ts="2018-11-05 18:19:15">
+<Routine name="test2" type="MAC" languagemode="0" timestamp="64957,65940.193707"><![CDATA[
+     
+       w "ыфвафывафывафывафыва"
+       q
+      ; d ^test2
+       ; s foundurl="UtilSysDbGlobals.csp"
+       ; s foundurl="UtilSysGlobal.csp"
+       ; s foundurl="CSP.UI.Portal.LicenseUsage"
+       ; s foundurl="%SyntaxColor"
+       ; s foundurl="Applications.Web.zen"
+       s oldNS=$zu(5)
+       d $zu(5,"SIRENA")
+       s foutxt="Debugger attached to process id"
+       s foutxt="Debugger "
+       s foundurl="UtilSysTaskMail.csp"
+       s classname=""
+       for  { 
+         s classname = $o(^oddDEF(classname))
+         q:classname=""
+         continue:$l(classname,"%")=2
+         
+         continue:$l(classname,"%")=2
+         if $d(^oddDEF(classname,60)){
+            if $l(^oddDEF(classname,60),"%Persistent")=1{
+              continue
+            }
+         }
+         s prop=""
+         for {
+           s prop=$o(^oddDEF(classname,"a",prop))
+           q:prop=""
+           Continue:'$d(^oddDEF(classname,"a",prop,5))
+           s TypeProp=^oddDEF(classname,"a",prop,5)
+           if $l(TypeProp,"String")=2{
+	             &html<classname:#(classname)#  Property: #(prop)#  as #(TypeProp)# >
+           }
+         }
+         continue
+         
+         ; CONTINUE:$l(classname,"%CSP.UI.Portal.")=1
+         ; CONTINUE:$l(classname,"%CSP.UI.Portal.")=1
+         if $d(^oddDEF(classname,"p","CSPURL",22)){
+	       if $l(^oddDEF(classname,"p","CSPURL",22), foundurl )>1{
+		       w !,"classname---"_classname
+	       }
+         }
+         
+         if $d(^oddDEF(classname,"m")){
+            s method=""
+            for {
+              s method= $o(^oddDEF(classname,"m",method))
+              q:method=""
+              continue:'$d(^oddDEF(classname,"m",method,30))
+              s ind=""
+              for ind=1:1:^oddDEF(classname,"m",method,30){    
+                 s line=^oddDEF(classname,"m",method,30,ind)
+                 if $l(line,foutxt)>1 {
+	                 w !,classname,"  ",method,"  NumLine",ind
+	                 w !,"LINE:"_line
+                 }
+              }
+           }
+         
+         }  
+         
+       }
+       d $zu(5,oldNS)
+       q
+]]></Routine>
+</Export>
